@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	netProtocol    = "tcp"
+	netProtocol    = "unix"
 	apiVersion     = "v1beta1"
 	runtimeName    = "JDCloud-KMS"
 	runtimeVersion = "0.0.1"
