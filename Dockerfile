@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM alpine
 
 COPY build/k8s-kms-plugin /k8s-kms-plugin
 

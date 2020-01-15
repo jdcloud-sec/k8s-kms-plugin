@@ -7,7 +7,7 @@ all: $(OBJ)
 
 $(OBJ):
 	mkdir -p ./build
-	go build -gcflags "-N -l" -o ./build/$(OBJ)
+	go build -gcflags "-N -l" -tags netgo -o ./build/$(OBJ)
 
 clean:
 	rm -fr ./build/$(OBJ)

@@ -5,7 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
-	plugin "k8s-kms-plugin/plugin"
+	plugin "github.com/jdcloud-sec/k8s-kms-plugin/plugin"
 )
 
 var (
