@@ -23,6 +23,7 @@ func NewKmsClient(accessKey, secretKey, kmsEndpoint, kmsKeyId, schema string) *K
 
 	client := client.NewKmsClient(credentials)
 	client.SetConfig(config)
+    client.SetLogger(core.NewDummyLogger())
 
 	return &KmsClient{
 		keyID:  kmsKeyId,
