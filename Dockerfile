@@ -1,7 +1,7 @@
-FROM alpine
+FROM ubuntu:latest
 
-COPY build/ /k8s-kms-plugin
+COPY build/k8s-kms-plugin /k8s-kms-plugin
 
-VOLUME /etc/k8s-kms-plugin.json
+VOLUME /etc/kubernetes/jdcloud-kms-plugin.json
 
 CMD [ "/k8s-kms-plugin" ]

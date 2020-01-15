@@ -1,14 +1,15 @@
 package main
 
 import (
-	plugin "k8s-kms-plugin/plugin"
 	"encoding/json"
 	"flag"
+	"fmt"
 	"io/ioutil"
+	plugin "k8s-kms-plugin/plugin"
 )
 
 var (
-	cfgFile = flag.String("f", "/etc/k8s-kms-plugin.json", "kms plugin configuration for kubernetes")
+	cfgFile = flag.String("f", "/etc/kubernetes/jdcloud-kms-plugin.json", "kms plugin configuration for kubernetes")
 )
 
 type PluginConfig struct {
@@ -34,6 +35,12 @@ func main() {
 	if err := json.Unmarshal(cfgData, &cfg); err != nil {
 		panic(err)
 	}
+
+	fmt.Println("JdCloud K8S KMS Plugin start. ")
+	fmt.Println("EndPoint:", cfg.KmsEndpoint)
+	fmt.Println("KmsSchema:", cfg.KmsSchema)
+	fmt.Println("KmsKeyId:", cfg.KmsKeyId)
+	fmt.Println("GRPCSocketPath:", cfg.GRPCSocketPath)
 
 	kmsClient := plugin.NewKmsClient(cfg.AccessKey, cfg.SecretKey, cfg.KmsEndpoint, cfg.KmsKeyId, cfg.KmsSchema)
 	kmsPlugin := plugin.NewK8sKmsPlugin(cfg.GRPCSocketPath)
