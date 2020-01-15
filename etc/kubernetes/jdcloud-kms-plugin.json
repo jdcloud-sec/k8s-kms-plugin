@@ -1,0 +1,8 @@
+{
+  "AccessKey": "9A867DDC9C74AAD7C99C74AAD7A3E92E",
+  "SecretKey": "01BB714978BBDD764B931AD8E0F94292",
+  "KmsEndpoint": "kms.internal.cn-north-1.jdcloud-api.com",
+  "KmsKeyId": "srh6mt4lj49tnzvs",
+  "KmsSchema": "http",
+  "GRPCSocketPath": "/var/run/k8s-kms-plugin/kms-plugin.sock"
+}

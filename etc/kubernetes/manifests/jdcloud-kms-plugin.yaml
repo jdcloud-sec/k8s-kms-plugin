@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    component: jdcloud-kms-plugin
+    tier: control-plane
+  name: jdcloud-kms-plugin
+  namespace: kube-system
+spec:
+  containers:
+  - command:
+    - /k8s-kms-plugin
+    image: jdcloudsec/k8s-kms-plugin:latest
+    imagePullPolicy: IfNotPresent
+    name: jdcloud-kms-plugin
+    resources:
+      requests:
+        cpu: 250m
+    volumeMounts:
+    - mountPath: /etc/kubernetes/jdcloud-kms-plugin.json
+      name: jdcloud-kms-plugin-configfile
+      readOnly: true
+    - mountPath: /var/run/k8s-kms-plugin/
+      name: k8s-kms-plugin-unixsock-directory
+      readOnly: false
+  hostNetwork: true
+  priorityClassName: system-cluster-critical
+  volumes:
+  - hostPath:
+      path: /etc/kubernetes/jdcloud-kms-plugin.json
+      type: File
+    name: jdcloud-kms-plugin-configfile
+  - hostPath:
+      path: /var/run/k8s-kms-plugin/
+      type: DirectoryOrCreate
+    name: k8s-kms-plugin-unixsock-directory
+status: {}
