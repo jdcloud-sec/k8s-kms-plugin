@@ -1,7 +1,7 @@
 package main
 
 import (
-	plugin "./plugin"
+	plugin "k8s-kms-plugin/plugin"
 	"encoding/json"
 	"flag"
 	"io/ioutil"

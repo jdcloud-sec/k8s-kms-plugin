@@ -1,13 +1,14 @@
-export GOPATH=$(shell pwd):$(shell pwd)/vendor
+export GOPROXY=https://goproxy.io,direct
+export GO111MODULE=on
 
 OBJ = k8s-kms-plugin
 
 all: $(OBJ)
 
 $(OBJ):
-	mkdir -p build
-	cd src && go build -gcflags "-N -l" -o ../build/$@
+	mkdir -p ./build
+	go build -gcflags "-N -l" -o ./build/$(OBJ)
 
 clean:
-	rm -fr $(OBJ)
+	rm -fr ./build/$(OBJ)
 
