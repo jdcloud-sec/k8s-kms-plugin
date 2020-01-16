@@ -37,16 +37,20 @@ func (kms *K8sKmsPlugin) Version(ctx context.Context, req *VersionRequest) (*Ver
 }
 
 func (kms *K8sKmsPlugin) Decrypt(ctx context.Context, req *DecryptRequest) (*DecryptResponse, error) {
+	fmt.Println("Decrypt len(data):", len(req.Cipher))
 	plain, err := kms.kmsClient.Decrypt(req.Cipher)
 	if err != nil {
+		fmt.Println("Decrypt failed:", err.Error)
 		return nil, err
 	}
 	return &DecryptResponse{Plain: plain}, nil
 }
 
 func (kms *K8sKmsPlugin) Encrypt(ctx context.Context, req *EncryptRequest) (*EncryptResponse, error) {
+	fmt.Println("Encrypt len(data):", len(req.Plain))
 	cipher, err := kms.kmsClient.Encrypt(req.Plain)
 	if err != nil {
+		fmt.Println("Encrypt failed:", err.Error)
 		return nil, err
 	}
 	return &EncryptResponse{Cipher: []byte(cipher)}, nil

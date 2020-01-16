@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"io/ioutil"
 	plugin "github.com/jdcloud-sec/k8s-kms-plugin/plugin"
+	"io/ioutil"
 )
 
 var (
@@ -19,6 +19,7 @@ type PluginConfig struct {
 	KmsKeyId       string `json:"KmsKeyId"`
 	KmsSchema      string `json:"KmsSchema"`
 	GRPCSocketPath string `json:"GRPCSocketPath"`
+	DebugMode      bool   `json:"DebugMode"`
 }
 
 func main() {
@@ -42,7 +43,7 @@ func main() {
 	fmt.Println("KmsKeyId:", cfg.KmsKeyId)
 	fmt.Println("GRPCSocketPath:", cfg.GRPCSocketPath)
 
-	kmsClient := plugin.NewKmsClient(cfg.AccessKey, cfg.SecretKey, cfg.KmsEndpoint, cfg.KmsKeyId, cfg.KmsSchema)
+	kmsClient := plugin.NewKmsClient(cfg.AccessKey, cfg.SecretKey, cfg.KmsEndpoint, cfg.KmsKeyId, cfg.KmsSchema, cfg.DebugMode)
 	kmsPlugin := plugin.NewK8sKmsPlugin(cfg.GRPCSocketPath)
 	kmsPlugin.SetKmsClient(kmsClient)
 

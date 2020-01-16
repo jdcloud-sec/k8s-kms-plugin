@@ -12,7 +12,7 @@ type KmsClient struct {
 	client *client.KmsClient
 }
 
-func NewKmsClient(accessKey, secretKey, kmsEndpoint, kmsKeyId, schema string) *KmsClient {
+func NewKmsClient(accessKey, secretKey, kmsEndpoint, kmsKeyId, schema string, debug bool) *KmsClient {
 	/** 设置Credentials对象 **/
 	credentials := core.NewCredentials(accessKey, secretKey)
 
@@ -23,7 +23,10 @@ func NewKmsClient(accessKey, secretKey, kmsEndpoint, kmsKeyId, schema string) *K
 
 	client := client.NewKmsClient(credentials)
 	client.SetConfig(config)
-    client.SetLogger(core.NewDummyLogger())
+
+	if debug == false {
+		client.SetLogger(core.NewDummyLogger())
+	}
 
 	return &KmsClient{
 		keyID:  kmsKeyId,
