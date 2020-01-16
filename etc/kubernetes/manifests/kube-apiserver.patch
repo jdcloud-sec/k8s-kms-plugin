@@ -1,0 +1,36 @@
+--- /etc/kubernetes/manifests/kube-apiserver.yaml	2020-01-16 10:29:53.303801539 +0800
++++ kube-apiserver.yaml	2020-01-16 10:42:31.020428089 +0800
+@@ -11,6 +11,7 @@
+   containers:
+   - command:
+     - kube-apiserver
++    - --encryption-provider-config=/etc/kubernetes/apiserver-encryption.conf
+     - --advertise-address=192.168.0.6
+     - --allow-privileged=true
+     - --authorization-mode=Node,RBAC
+@@ -68,6 +69,12 @@
+     - mountPath: /usr/share/ca-certificates
+       name: usr-share-ca-certificates
+       readOnly: true
++    - mountPath: /etc/kubernetes/apiserver-encryption.conf
++      name: apiserver-encryption-conf
++      readOnly: true
++    - mountPath: /var/run/k8s-kms-plugin/ 
++      name: k8s-kms-plugin-unixsock-directory
++      readOnly: false
+   hostNetwork: true
+   priorityClassName: system-cluster-critical
+   volumes:
+@@ -91,4 +98,12 @@
+       path: /usr/share/ca-certificates
+       type: DirectoryOrCreate
+     name: usr-share-ca-certificates
++  - hostPath:
++      path: /etc/kubernetes/apiserver-encryption.conf
++      type: File
++    name: apiserver-encryption-conf
++  - hostPath:
++      path: /var/run/k8s-kms-plugin/
++      type: DirectoryOrCreate
++    name: k8s-kms-plugin-unixsock-directory
+ status: {}
